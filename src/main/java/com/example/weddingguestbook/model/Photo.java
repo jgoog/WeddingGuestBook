@@ -1,12 +1,12 @@
 package com.example.weddingguestbook.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "photos")
 
 public class Photo {
 
@@ -24,6 +24,17 @@ public class Photo {
 
     @Column
     private String caption;
+
+
+    public Photo() {
+    }
+
+    public Photo(Long id, String imageContent, LocalDate upload_date, String caption) {
+        this.id = id;
+        this.imageContent = imageContent;
+        this.upload_date = upload_date;
+        this.caption = caption;
+    }
 
     public Long getId() {
         return id;
