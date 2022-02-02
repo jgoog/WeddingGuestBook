@@ -1,8 +1,8 @@
 package com.example.weddingguestbook.model;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "comments")
 
 public class Comments {
 
