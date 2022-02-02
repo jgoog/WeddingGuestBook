@@ -2,6 +2,8 @@ package com.example.weddingguestbook.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,10 +19,11 @@ public class User {
     @Column
     private String userName;
 
-    @Column(unique = true)
+    @Column
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
 
