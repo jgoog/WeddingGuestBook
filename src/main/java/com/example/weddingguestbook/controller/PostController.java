@@ -52,10 +52,10 @@ public class PostController {
         return postService.deletePost(postId);
     }
 
-//    @PostMapping(path = "/posts/{postId}")
-//    public Comments createCommentPost(@PathVariable(value = "postId") Long postId, @RequestBody Comments commentsObject){
-//        return postService.createCommentPost(postId, commentsObject);
-//    }
+    @PostMapping(path = "/posts/{postId}/comment")
+    public Comments createCommentPost(@PathVariable(value = "postId") Long postId, @RequestBody Comments commentsObject){
+        return postService.createCommentPost(postId, commentsObject);
+    }
 
 
 
