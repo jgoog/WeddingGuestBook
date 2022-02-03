@@ -46,23 +46,23 @@ public class PostService {
         return posts;
     }
 
-//    public Posts updatePost(Long postId,Posts postObject) {
-//
-//        Optional<Posts> post = postRepository.findById(postId);
-//        if (post.isPresent()) {
-//            if (postObject.getPostContent().equals(post.get().getPostContent())) {
-//                System.out.println("Same info try again");
-//                throw new InformationExistException("post " + post.get().getPostContent() + " already exists");
-//            } else {
-//                Posts updatePost = postRepository.findById(postId).get();
-////                updatePost.setPostDate(postObject.getPostDate());
-//                updatePost.setPostContent(postObject.getPostContent());
-//                return postRepository.save(updatePost);
-//            }
-//        }else {
-//            throw new InformationNotFoundException("post with id " + postId + " does not exist");
-//        }
-//    }
+    public Posts updatePost(Long postId,Posts postObject) {
+
+        Optional<Posts> post = postRepository.findById(postId);
+        if (post.isPresent()) {
+            if (postObject.getPostContent().equals(post.get().getPostContent())) {
+                System.out.println("Same info try again");
+                throw new InformationExistException("post " + post.get().getPostContent() + " already exists");
+            } else {
+                Posts updatePost = postRepository.findById(postId).get();
+//                updatePost.setPostDate(postObject.getPostDate());
+                updatePost.setPostContent(postObject.getPostContent());
+                return postRepository.save(updatePost);
+            }
+        }else {
+            throw new InformationNotFoundException("post with id " + postId + " does not exist");
+        }
+    }
 
         public String deletePost (Long postId){
             postRepository.deleteById(postId);
@@ -74,12 +74,17 @@ public class PostService {
             try {
                 Optional post = postRepository.findById(postId);
                 commentsObject.setPosts((Posts) post.get());
-                return (Comments) commentRepository.save(commentsObject);
+                return commentRepository.save(commentsObject);
             } catch (NoSuchElementException e) {
                 throw new InformationNotFoundException("post with id " + postId + " not found");
             }
         }
 
+        public List<Comments> getCommentsPost(Long postId){
+            System.out.println("Calling all comments on post");
+            Posts posts = postRepository.findById(postId).get();
+            return posts.getCommentsList();
+        }
 
 
 
