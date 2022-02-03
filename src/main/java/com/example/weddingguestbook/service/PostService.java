@@ -5,7 +5,7 @@ import com.example.weddingguestbook.exceptions.InformationExistException;
 import com.example.weddingguestbook.exceptions.InformationNotFoundException;
 import com.example.weddingguestbook.model.Comments;
 import com.example.weddingguestbook.model.Posts;
-//import com.example.weddingguestbook.repository.CommentRepository;
+import com.example.weddingguestbook.repository.CommentRepository;
 import com.example.weddingguestbook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,20 +18,16 @@ import java.util.Optional;
 public class PostService {
 
     private PostRepository postRepository;
-//    private CommentRepository commentRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
     public void setPostRepository(PostRepository postRepository){
         this.postRepository = postRepository;
     }
 
-//    @Autowired
-//    public void setCommentRepository(CommentRepository commentRepository){this.commentRepository = commentRepository;}
+    @Autowired
+    public void setCommentRepository(CommentRepository commentRepository){this.commentRepository = commentRepository;}
 
-
-//    public List<Posts> getAllPosts(){
-//        List<Posts> posts = postRepository.findBy
-//    }
 
 
     public Posts createPost(Posts postObject){
@@ -73,16 +69,16 @@ public class PostService {
             return "post with Id " + postId + "has been deleted successfully";
         }
 
-//        public Comments createCommentPost(Long postId, Comments commentsObject){
-//            System.out.println("service calling createCategoryRecipe ==>");
-//            try {
-//                Optional post = postRepository.findById(postId);
-//                commentsObject.setPosts((Posts) post.get());
-//                return (Comments) commentRepository.save(commentsObject);
-//            } catch (NoSuchElementException e) {
-//                throw new InformationNotFoundException("post with id " + postId + " not found");
-//            }
-//        }
+        public Comments createCommentPost(Long postId, Comments commentsObject){
+            System.out.println("service calling createCategoryRecipe ==>");
+            try {
+                Optional post = postRepository.findById(postId);
+                commentsObject.setPosts((Posts) post.get());
+                return (Comments) commentRepository.save(commentsObject);
+            } catch (NoSuchElementException e) {
+                throw new InformationNotFoundException("post with id " + postId + " not found");
+            }
+        }
 
 
 
