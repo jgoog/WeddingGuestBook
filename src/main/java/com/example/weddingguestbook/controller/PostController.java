@@ -42,10 +42,10 @@ public class PostController {
         return postService.getPost(postId);
     }
 
-//    @PutMapping(path = "/posts/{postId}")
-//    public Posts updatePost(@PathVariable(value = "postId")Long postID,@RequestBody Posts postObject){
-//        return postService.updatePost(postID,postObject);
-//    }
+    @PutMapping(path = "/posts/{postId}")
+    public Posts updatePost(@PathVariable(value = "postId")Long postID,@RequestBody Posts postObject){
+        return postService.updatePost(postID,postObject);
+    }
 
     @DeleteMapping(path = "/posts/{postId}")
     public String deletePost(@PathVariable(value = "postId")Long postId){
@@ -56,6 +56,13 @@ public class PostController {
     public Comments createCommentPost(@PathVariable(value = "postId") Long postId, @RequestBody Comments commentsObject){
         return postService.createCommentPost(postId, commentsObject);
     }
+
+    @GetMapping(path = "/posts/{postId}/comment")
+    public List<Comments> getCommentsPost(@PathVariable(value = "postId")Long postId){
+        return postService.getCommentsPost(postId);
+    }
+
+    
 
 
 
