@@ -1,8 +1,12 @@
 package com.example.weddingguestbook.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "posts")
@@ -14,6 +18,7 @@ public class Posts {
     private Long id;
 
     @Column
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM-dd-yyyy")
     private LocalDate postDate;
 
     @Column
