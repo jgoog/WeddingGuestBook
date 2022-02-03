@@ -1,4 +1,6 @@
 package com.example.weddingguestbook.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,11 @@ public class Comments {
 
     @Column
     private String comment;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Posts posts;
 
     public Comments() {
     }
