@@ -1,4 +1,4 @@
-package com.food.recipes.exceptions;
+package com.example.weddingguestbook.exceptions;
 
 
 import org.springframework.http.HttpStatus;
