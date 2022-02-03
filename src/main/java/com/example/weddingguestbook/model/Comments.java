@@ -16,10 +16,18 @@ public class Comments {
     @Column
     private String comment;
 
+    //Connect to posts table
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "posts_id")
     private Posts posts;
+
+    // Connect to user table
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Comments() {
     }

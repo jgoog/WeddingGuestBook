@@ -1,6 +1,7 @@
 package com.example.weddingguestbook.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -25,6 +26,15 @@ public class Photo {
     @Column
     private String caption;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "posts_id")
+    private Posts posts;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Photo() {
     }

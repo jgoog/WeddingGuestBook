@@ -1,9 +1,11 @@
 package com.example.weddingguestbook.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
 @Entity
-@Table(name = "user_profile")
+@Table(name = "profiles")
 public class UserProfile {
 
 
@@ -22,6 +24,10 @@ public class UserProfile {
     @Column
     private String relation;
 
+    // Connect to user table
+    @JsonIgnore // will not be included in serialized Json object,won't show up when called upon
+    @OneToOne(mappedBy = "userProfile")
+    private User user;
 
     public UserProfile() {
     }

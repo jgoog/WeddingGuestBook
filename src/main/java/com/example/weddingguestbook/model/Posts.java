@@ -2,6 +2,7 @@ package com.example.weddingguestbook.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -30,6 +31,15 @@ public class Posts {
     @OneToMany(mappedBy = "posts", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comments> commentsList;
+
+    @OneToMany(mappedBy = "posts",orphanRemoval = true)
+    private List<Photo> photoList;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
     public Posts() {
     }
