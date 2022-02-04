@@ -133,13 +133,21 @@ public class PostService {
     }
 
     public void deleteCommentPost(Long postId, Long commentsId){
-        try {
-            Comments comments = (commentsRepository.findByPostsId(
-                    postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst()).get();
-            commentsRepository.deleteById(comments.getId());
-        } catch (NoSuchElementException e) {
-            throw new InformationNotFoundException("recipe or category not found");
+        System.out.println("Calling to delete Comment on post ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId +
+                    " not belongs to this user or post does not exist");
         }
+        Optional<Comments> comments = commentsRepository.findByPostsId(
+                postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst();
+        if (!comments.isPresent()) {
+            throw new InformationNotFoundException("comment with id " + commentsId +
+                    " not belongs to this user or comment does not exist");
+        }
+        commentsRepository.deleteById(comments.get().getId());
     }
 
     /////////////////////       PHOTO API          //////////////////////////////
