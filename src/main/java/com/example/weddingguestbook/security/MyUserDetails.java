@@ -1,6 +1,7 @@
-package com.food.recipes.security;
+package com.example.weddingguestbook.security;
 
-import com.food.recipes.model.User;
+import com.example.weddingguestbook.model.User;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

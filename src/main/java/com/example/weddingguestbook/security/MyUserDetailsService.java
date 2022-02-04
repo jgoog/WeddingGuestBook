@@ -1,7 +1,7 @@
-package com.food.recipes.security;
+package com.example.weddingguestbook.security;
 
-import com.food.recipes.model.User;
-import com.food.recipes.service.UserService;
+import com.example.weddingguestbook.model.User;
+import com.example.weddingguestbook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
