@@ -1,7 +1,9 @@
-package com.food.recipes.security;
+package com.example.weddingguestbook.service;
 
-import com.food.recipes.security.MyUserDetails;
-import com.food.recipes.security.MyUserDetailsService;
+import com.example.weddingguestbook.security.JwtRequestFilter;
+import com.example.weddingguestbook.security.MyUserDetails;
+import com.example.weddingguestbook.security.MyUserDetailsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;

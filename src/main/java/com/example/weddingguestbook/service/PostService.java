@@ -152,6 +152,16 @@ public class PostService {
         }
     }
 
+    public void deletePhotoPost(Long postId, Long photoId){
+        try {
+            Photo photo = (photoRepository.findByPostsId(
+                    postId).stream().filter(p -> p.getId().equals(photoId)).findFirst()).get();
+            photoRepository.deleteById(photo.getId());
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("recipe or category not found");
+        }
+    }
+
 
 
 
