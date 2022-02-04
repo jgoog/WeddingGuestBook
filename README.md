@@ -28,3 +28,10 @@ Timeline :
 - Day 2 : Create service and controllers 
 - Day 3:Create Excetion handling for all endpoints 
 - Day 4: configure login and security for all endpoints and fix bugs 
+
+In this project I created:
+- 5 models
+- 3 service classes
+- 5 repository interface classes
+- 2 controller classes 
+- 15 endpoints 2 of them are public for the user to register and login
