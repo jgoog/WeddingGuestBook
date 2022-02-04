@@ -23,6 +23,8 @@ At a later time I would like to add anoter model for users to reply to comments 
 ## Planning and Timeline
 I implemented the MVC design for this project which has a simple approach to it. The user interacts with the view which talks to the controller and the controller talks to the model as you can see in the diagram.
 ![MVC.jpg](/Image/Images/MVC.jpg)
-            Timeline :
-- Day 1: create all models,packages and repos  -Day 2 : Create service and controllers 
--Day 3:Create Excetion handling for all endpoints -Day 4: configure login and security for all endpoints and fix bugs 
+Timeline :
+- Day 1: create all models,packages and repos  
+- Day 2 : Create service and controllers 
+- Day 3:Create Excetion handling for all endpoints 
+- Day 4: configure login and security for all endpoints and fix bugs 
