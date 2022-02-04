@@ -58,24 +58,22 @@ public class PostService {
 
     public Optional<Posts> getPost(Long postId){
         Optional<Posts> posts = postRepository.findById(postId);
-        return posts;
+        if(posts.isPresent()){
+            return posts;
+        } else{
+            throw new InformationNotFoundException("posts with Id " + postId + " not found");
+        }
     }
 
     public Posts updatePost(Long postId,Posts postObject) {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Optional<Posts> post = postRepository.findById(postId);
-        if (post.isPresent()) {
-            if (postObject.getPostContent().equals(post.get().getPostContent())) {
-                System.out.println("Same info try again");
-                throw new InformationExistException("post " + post.get().getPostContent() + " already exists");
-            } else {
-                Posts updatePost = postRepository.findById(postId).get();
-//                updatePost.setPostDate(postObject.getPostDate());
-                updatePost.setPostContent(postObject.getPostContent());
-                return postRepository.save(updatePost);
-            }
-        }else {
-            throw new InformationNotFoundException("post with id " + postId + " does not exist");
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId + " not found");
+        } else {
+            post.setPostContent(postObject.getPostContent());
+            return postRepository.save(post);
         }
     }
 
