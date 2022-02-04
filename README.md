@@ -54,3 +54,13 @@ In this project I created:
 | PUT _/api/posts/{postId}/_ | UPDATE post | YES |
 | DEL _/api/posts/{postId}/_ | DELETE post | YES|
 
+# Machineries Used
+
+ - Post man : help serialize endpoints
+ - postGres/pgAdmin4 : create database and also help visualize tables
+ - SpringBoot : where all the magic happend, what I use to build everything
+ - Intellji/JAVA : program I used to build database
+ - Mavaen : what I used for my dependencies
+ - StackFlow : help for debugging
+ - Youtube: learn about annotations and JWT
+ - Json Web Tokens (JWT) : what I used for authentication
