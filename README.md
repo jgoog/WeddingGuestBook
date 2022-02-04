@@ -35,3 +35,14 @@ In this project I created:
 - 5 repository interface classes
 - 2 controller classes 
 - 15 endpoints 2 of them are public for the user to register and login
+
+# Endpoints
+
+| ENDPOINT | FUNCTIONALITY |
+| --- | :--- |
+| POST _/api/posts/{postId}/comment_ | POST new comment
+| GET _/api/posts/{postId}/comment_ | GET all comments on post
+| GET _/api/posts/5/comment/6/ | Get one comment on post
+| DELETE _/api/posts/5/comment/6/| DELETE comment on post
+| PUT _/api/horse/update/horseName_ | UPDATE a Horse
+
