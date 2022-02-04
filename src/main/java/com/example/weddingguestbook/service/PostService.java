@@ -5,7 +5,7 @@ import com.example.weddingguestbook.exceptions.InformationExistException;
 import com.example.weddingguestbook.exceptions.InformationNotFoundException;
 import com.example.weddingguestbook.model.Comments;
 import com.example.weddingguestbook.model.Posts;
-import com.example.weddingguestbook.repository.CommentRepository;
+import com.example.weddingguestbook.repository.CommentsRepository;
 import com.example.weddingguestbook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,14 @@ import java.util.Optional;
 public class PostService {
 
     private PostRepository postRepository;
-    private CommentRepository commentRepository;
-
     @Autowired
     public void setPostRepository(PostRepository postRepository){
         this.postRepository = postRepository;
     }
 
+    private CommentsRepository commentsRepository;
     @Autowired
-    public void setCommentRepository(CommentRepository commentRepository){this.commentRepository = commentRepository;}
+    public void setCommentRepository(CommentsRepository commentsRepository){this.commentsRepository = commentsRepository;}
 
 
 
@@ -64,28 +63,52 @@ public class PostService {
         }
     }
 
-        public String deletePost (Long postId){
-            postRepository.deleteById(postId);
-            return "post with Id " + postId + "has been deleted successfully";
-        }
+    public String deletePost (Long postId){
+        postRepository.deleteById(postId);
+        return "post with Id " + postId + "has been deleted successfully";
+    }
 
-        public Comments createCommentPost(Long postId, Comments commentsObject){
-            System.out.println("service calling createCategoryRecipe ==>");
-            try {
-                Optional post = postRepository.findById(postId);
-                commentsObject.setPosts((Posts) post.get());
-                return commentRepository.save(commentsObject);
-            } catch (NoSuchElementException e) {
-                throw new InformationNotFoundException("post with id " + postId + " not found");
+    public Comments createCommentPost(Long postId, Comments commentsObject){
+        System.out.println("service calling createCategoryRecipe ==>");
+        try {
+            Optional post = postRepository.findById(postId);
+            commentsObject.setPosts((Posts) post.get());
+            return commentsRepository.save(commentsObject);
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("post with id " + postId + " not found");
+        }
+    }
+
+    public List<Comments> getCommentsPost(Long postId){
+        System.out.println("Calling all comments on post");
+        Posts posts = postRepository.findById(postId).get();
+        return posts.getCommentsList();
+    }
+
+    public Comments getCommentPost(Long postId, Long commentsId){
+        Optional<Posts> posts = postRepository.findById(postId);
+        if (posts.isPresent()) {
+            Optional<Comments> comments = commentsRepository.findByPostsId(
+                    postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst();
+            if(comments.isEmpty()){
+                throw new InformationNotFoundException("Comment with Id " + commentsId + " not found");
+            }else {
+                return comments.get();
             }
+        }else{
+            throw new InformationNotFoundException("Post with id " + postId + " not found");
         }
+    }
 
-        public List<Comments> getCommentsPost(Long postId){
-            System.out.println("Calling all comments on post");
-            Posts posts = postRepository.findById(postId).get();
-            return posts.getCommentsList();
+    public void deleteCommentPost(Long postId, Long commentsId){
+        try {
+            Comments comments = (commentsRepository.findByPostsId(
+                    postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst()).get();
+            commentsRepository.deleteById(comments.getId());
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("recipe or category not found");
         }
-
+    }
 
 
 
