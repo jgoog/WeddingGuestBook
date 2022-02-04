@@ -9,7 +9,9 @@ import com.example.weddingguestbook.model.Posts;
 import com.example.weddingguestbook.repository.CommentsRepository;
 import com.example.weddingguestbook.repository.PhotoRepository;
 import com.example.weddingguestbook.repository.PostRepository;
+import com.example.weddingguestbook.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -41,8 +43,14 @@ public class PostService {
     }
 
     public List<Posts> getAllPosts(){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("Returning all post by every user");
-        return postRepository.findAll();
+        List<Posts> posts = postRepository.findByUserId(userDetails.getUser().getId());
+        if(posts.isEmpty()){
+            throw new InformationNotFoundException("no posts found for user id " + userDetails.getUser().getId() + " not found");
+        } else{
+            return posts;
+        }
     }
 
 
