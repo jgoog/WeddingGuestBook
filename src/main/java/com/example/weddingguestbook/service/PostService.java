@@ -167,9 +167,15 @@ public class PostService {
     }
 
     public List<Photo> getAllPhotosOnPost(Long postId){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+
         System.out.println("Calling all photos on post");
-        Posts posts = postRepository.findById(postId).get();
-        return posts.getPhotoList();
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId + " " +
+                    "not belongs to this user or category does not exist");
+        }
+        return post.getPhotoList();
     }
 
     public Photo getPhotoOnPost(Long postId, Long photoId){
