@@ -20,8 +20,8 @@ public class Photo {
     private String imageContent;
 
     @Column
-    @JsonFormat(pattern = "MM-dd-yyyy")
-    private LocalDate upload_date;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="MM-dd-yyyy")
+    private LocalDate uploadDate;
 
     @Column
     private String caption;
@@ -39,11 +39,27 @@ public class Photo {
     public Photo() {
     }
 
-    public Photo(Long id, String imageContent, LocalDate upload_date, String caption) {
+    public Photo(Long id, String imageContent, LocalDate uploadDate, String caption) {
         this.id = id;
         this.imageContent = imageContent;
-        this.upload_date = upload_date;
+        this.uploadDate = uploadDate;
         this.caption = caption;
+    }
+
+    public Posts getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Posts posts) {
+        this.posts = posts;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -62,12 +78,12 @@ public class Photo {
         this.imageContent = imageContent;
     }
 
-    public LocalDate getUpload_date() {
-        return upload_date;
+    public LocalDate getUploadDate() {
+        return uploadDate;
     }
 
-    public void setUpload_date(LocalDate upload_date) {
-        this.upload_date = upload_date;
+    public void setUploadDate(LocalDate uploadDate) {
+        this.uploadDate = uploadDate;
     }
 
     public String getCaption() {

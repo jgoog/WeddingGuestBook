@@ -33,6 +33,7 @@ public class Posts {
     private List<Comments> commentsList;
 
     @OneToMany(mappedBy = "posts",orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Photo> photoList;
 
     @ManyToOne
@@ -57,6 +58,30 @@ public class Posts {
                 ", postDate=" + postDate +
                 ", postContent='" + postContent + '\'' +
                 '}';
+    }
+
+    public List<Comments> getCommentsList() {
+        return commentsList;
+    }
+
+    public void setCommentsList(List<Comments> commentsList) {
+        this.commentsList = commentsList;
+    }
+
+    public List<Photo> getPhotoList() {
+        return photoList;
+    }
+
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

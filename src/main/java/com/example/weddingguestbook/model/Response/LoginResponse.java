@@ -1,4 +1,4 @@
-package com.food.recipes.model.Response;
+package com.example.weddingguestbook.model.Response;
 
 public class LoginResponse {
 

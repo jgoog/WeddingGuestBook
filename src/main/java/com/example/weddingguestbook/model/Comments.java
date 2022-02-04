@@ -37,6 +37,22 @@ public class Comments {
         this.comment = comment;
     }
 
+    public Posts getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Posts posts) {
+        this.posts = posts;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
@@ -51,5 +67,16 @@ public class Comments {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Comments{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", posts=" + posts +
+                ", user=" + user +
+                '}';
     }
 }
