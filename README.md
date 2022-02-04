@@ -39,7 +39,7 @@ In this project I created:
 # Endpoints
 
 | ENDPOINT | FUNCTIONALITY | PUBLIC |
-| --- | :--- |
+| --- | :--- |:--- |
 | POST _/api/posts/{postId}/comment_ | POST new comment | NO |
 | GET _/api/posts/{postId}/comment_ | GET all comments on post | NO |
 | GET _/api/posts/{postId}/comment_{commentId}/ | Get one comment on post | NO |
