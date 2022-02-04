@@ -38,11 +38,19 @@ In this project I created:
 
 # Endpoints
 
-| ENDPOINT | FUNCTIONALITY |
+| ENDPOINT | FUNCTIONALITY | PUBLIC |
 | --- | :--- |
-| POST _/api/posts/{postId}/comment_ | POST new comment
-| GET _/api/posts/{postId}/comment_ | GET all comments on post
-| GET _/api/posts/5/comment/6/ | Get one comment on post
-| DELETE _/api/posts/5/comment/6/| DELETE comment on post
-| PUT _/api/horse/update/horseName_ | UPDATE a Horse
+| POST _/api/posts/{postId}/comment_ | POST new comment | NO |
+| GET _/api/posts/{postId}/comment_ | GET all comments on post | NO |
+| GET _/api/posts/{postId}/comment_{commentId}/ | Get one comment on post | NO |
+| DEL _/api/posts/{postId}/comment/{commentId}_ | DELETE comment on post | NO |
+| POST _/api/posts/{postId}/photo_ | POST new photo | NO |
+| GET _/api/posts/{postId}/photo_ | GET all photos on post | NO |
+| GET _/api/posts/{postId}/photo/{photoId}_ | GET one photo on post | NO |
+| DEL _/api/posts/{postId}/photo/{photoId}_ | DELETE a photo on post | NO |
+| GET _/api/posts/_ | GET all post | NO |
+| POST _/api/posts/_ | POST create post | NO |
+| GET _/api/posts/{postId}/_ | GET post | NO |
+| PUT _/api/posts/{postId}/_ | UPDATE post | YES |
+| DEL _/api/posts/{postId}/_ | DELETE post | YES|
 
