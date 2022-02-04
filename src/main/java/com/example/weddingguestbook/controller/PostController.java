@@ -2,6 +2,7 @@ package com.example.weddingguestbook.controller;
 
 
 import com.example.weddingguestbook.model.Comments;
+import com.example.weddingguestbook.model.Photo;
 import com.example.weddingguestbook.model.Posts;
 import com.example.weddingguestbook.repository.PostRepository;
 import com.example.weddingguestbook.service.PostService;
@@ -55,6 +56,8 @@ public class PostController {
         return postService.deletePost(postId);
     }
 
+    ////////////////        COMMENTS    API       /////////////////////////
+
     @PostMapping(path = "/posts/{postId}/comment")
     public Comments createCommentPost(@PathVariable(value = "postId") Long postId, @RequestBody Comments commentsObject){
         return postService.createCommentPost(postId, commentsObject);
@@ -78,6 +81,24 @@ public class PostController {
         responseMessage.put("status", "comment with Id: " + commentsId + " was successfully deleted.");
         return new ResponseEntity<HashMap>(responseMessage, HttpStatus.OK);
     }
+
+    ////////////////             PHOTOS   API          ///////////////////////////////////
+
+    @PostMapping(path = "/posts/{postId}/photo")
+    public Photo createPhotoPost(@PathVariable(value = "postId")Long postId,@RequestBody Photo photoObject){
+        return postService.createPhotoPost(postId,photoObject);
+    }
+
+    @GetMapping(path = "/posts/{postId}/photo")
+    public List<Photo> getAllPhotosOnPost(@PathVariable(value = "postId")Long postId){
+        return postService.getAllPhotosOnPost(postId);
+    }
+
+    @GetMapping(path = "/posts/{postId}/photo/{photoId}")
+    public Photo getPhotoOnPost(@PathVariable(value = "postId")Long postId, @PathVariable(value = "photoId")Long photoId){
+        return postService.getPhotoOnPost(postId,photoId);
+    }
+
 
 
 
