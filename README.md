@@ -5,4 +5,4 @@
 
 
 ## **Look no further everyone who was at your wedding in the palm of your hand**
-![guestbookImage.jpg]()
+![guestbookImage.jpg](Image/images/guestbookImage.jpg)
