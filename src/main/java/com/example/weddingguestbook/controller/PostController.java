@@ -6,8 +6,11 @@ import com.example.weddingguestbook.model.Posts;
 import com.example.weddingguestbook.repository.PostRepository;
 import com.example.weddingguestbook.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,8 +65,19 @@ public class PostController {
         return postService.getCommentsPost(postId);
     }
 
-    
+    @GetMapping(path = "/posts/{postId}/comment/{commentsId}")
+    public Comments getCommentPost(@PathVariable(value = "postId")Long postId, @PathVariable(value = "commentsId")Long commentsId){
+        return postService.getCommentPost(postId,commentsId);
+    }
 
+    @DeleteMapping(path = "/posts/{postId}/comment/{commentsId}")
+    public ResponseEntity<HashMap> deleteCommentPost(
+            @PathVariable(value = "postId")Long postId, @PathVariable(value = "commentsId")Long commentsId){
+        postService.deleteCommentPost(postId,commentsId);
+        HashMap responseMessage = new HashMap();
+        responseMessage.put("status", "comment with Id: " + commentsId + " was successfully deleted.");
+        return new ResponseEntity<HashMap>(responseMessage, HttpStatus.OK);
+    }
 
 
 
