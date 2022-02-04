@@ -66,30 +66,30 @@ In this project I created:
  - Json Web Tokens (JWT) : what I used for authentication
 
  # User Stories
-<Type of user>As a wedding guest
-<TASK>I want to be able to make a post. 
-<GOAL> so that I can interact with other guest.
-ACCEPTANCE CRITERIA
-<GIVEN> Given I’m in the role of logged in bride/groom.
-<WHEN> when I open the app I’m able to reply to a comment that a guest left.
-<THEN> the app saves my comment and the app shows comment.
+- <Type> of user>As a wedding guest
+- <TASK>I want to be able to make a post. 
+- <GOAL> so that I can interact with other guest.
+- ACCEPTANCE CRITERIA
+- <GIVEN> Given I’m in the role of logged in bride/groom.
+- <WHEN> when I open the app I’m able to reply to a comment that a guest left.
+- <THEN> the app saves my comment and the app shows comment.
 
-<As> a wedding guest
-<I Want> to be able to create an account
-<So that> the couple knows who I am.
-ACCEPTANCE CRITERIA
-<GIVEN> Given I am in the role of unregistered user/wedding guest
-<WHEN> I open the app there is a place for me enter my email, username and password.
-<THEN> the app saves my credentials and I am able to login into the account.
+- <As> a wedding guest
+- <I Want> to be able to create an account
+- <So that> the couple knows who I am.
+- ACCEPTANCE CRITERIA
+- <GIVEN> Given I am in the role of unregistered user/wedding guest
+- <WHEN> I open the app there is a place for me enter my email, username and password.
+- <THEN> the app saves my credentials and I am able to login into the account.
 
 
-<As> a signed in user/wedding guest
-<I Want> to be able to post comments and post pictures
-<So that> the couple can see what an amazing time I had.
-ACCEPTANCE CRITERIA
-<GIVEN> Given I’m in the role of logged in wedding guest
-<WHEN> when I open the app I’m able to post a comment or a picture.
-<THEN> the app saves my comment or picture and the app shows my picture or comment.
+- <As> a signed in user/wedding guest
+- <I Want> to be able to post comments and post pictures
+- <So that> the couple can see what an amazing time I had.
+- ACCEPTANCE CRITERIA
+- <GIVEN> Given I’m in the role of logged in wedding guest
+- <WHEN> when I open the app I’m able to post a comment or a picture.
+- <THEN> the app saves my comment or picture and the app shows my picture or comment.
 
 1. As a user I can get all comments on a post.
 1. As a user I can  login into my account.
