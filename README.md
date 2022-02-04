@@ -14,3 +14,8 @@ In this project I applied REST API for a Wedding GuestBook  application, which a
 So my thinking proccess orginally was an app that gives the guest a barcode to scan guest as they come in and automatically fills them into a database. Mitgates wedding crashers can compare the guest you expected to come against who shows up even if someone tells them to download the app. For right now its a social media app for weddings.
 
 ![finalerd.jpg](/Image/Images/finalerd.jpg)
+
+## Original ERD Diagram (ERD):
+At a later time I would like to add anoter model for users to reply to comments or on picture
+
+![futureERD.jpg](/Image/Images/futureERD.jpg)
