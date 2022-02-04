@@ -153,14 +153,17 @@ public class PostService {
     /////////////////////       PHOTO API          //////////////////////////////
 
     public Photo createPhotoPost(Long postId,Photo photoObject){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
 
-        try {
-            Optional post = postRepository.findById(postId);
-            photoObject.setPosts((Posts) post.get());
-            return photoRepository.save(photoObject);
-        } catch (NoSuchElementException e) {
-            throw new InformationNotFoundException("post with id " + postId + " not found");
+        System.out.println("service calling createPhotoPost ==>");
+        if (post == null) {
+            throw new InformationNotFoundException(
+                    "post with id " + postId + " does not belongs to this user or post does not exist");
         }
+        photoObject.setUser(userDetails.getUser());
+        photoObject.setPosts(post);
+        return photoRepository.save(photoObject);
     }
 
     public List<Photo> getAllPhotosOnPost(Long postId){
