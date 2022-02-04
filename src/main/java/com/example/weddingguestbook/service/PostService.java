@@ -117,18 +117,19 @@ public class PostService {
     }
 
     public Comments getCommentPost(Long postId, Long commentsId){
-        Optional<Posts> posts = postRepository.findById(postId);
-        if (posts.isPresent()) {
-            Optional<Comments> comments = commentsRepository.findByPostsId(
-                    postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst();
-            if(comments.isEmpty()){
-                throw new InformationNotFoundException("Comment with Id " + commentsId + " not found");
-            }else {
-                return comments.get();
-            }
-        }else{
-            throw new InformationNotFoundException("Post with id " + postId + " not found");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId +
+                    " not belongs to this user or category does not exist");
         }
+        Optional<Comments> comments = commentsRepository.findByPostsId(
+                postId).stream().filter(p -> p.getId().equals(commentsId)).findFirst();
+        if (!comments.isPresent()) {
+            throw new InformationNotFoundException("comment with id " + commentsId +
+                    " not belongs to this user or recipe does not exist");
+        }
+        return comments.get();
     }
 
     public void deleteCommentPost(Long postId, Long commentsId){
