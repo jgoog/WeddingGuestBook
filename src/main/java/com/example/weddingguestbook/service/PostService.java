@@ -4,11 +4,14 @@ package com.example.weddingguestbook.service;
 import com.example.weddingguestbook.exceptions.InformationExistException;
 import com.example.weddingguestbook.exceptions.InformationNotFoundException;
 import com.example.weddingguestbook.model.Comments;
+import com.example.weddingguestbook.model.Photo;
 import com.example.weddingguestbook.model.Posts;
 import com.example.weddingguestbook.repository.CommentsRepository;
+import com.example.weddingguestbook.repository.PhotoRepository;
 import com.example.weddingguestbook.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,6 +30,9 @@ public class PostService {
     @Autowired
     public void setCommentRepository(CommentsRepository commentsRepository){this.commentsRepository = commentsRepository;}
 
+    private PhotoRepository photoRepository;
+    @Autowired
+    public void setPhotoRepository(PhotoRepository photoRepository){this.photoRepository = photoRepository;}
 
 
     public Posts createPost(Posts postObject){
@@ -68,8 +74,10 @@ public class PostService {
         return "post with Id " + postId + "has been deleted successfully";
     }
 
+    //////////////////       COMMENTS API             ///////////////////
+
     public Comments createCommentPost(Long postId, Comments commentsObject){
-        System.out.println("service calling createCategoryRecipe ==>");
+        System.out.println("service calling createCommentPost ==>");
         try {
             Optional post = postRepository.findById(postId);
             commentsObject.setPosts((Posts) post.get());
@@ -110,9 +118,39 @@ public class PostService {
         }
     }
 
+    /////////////////////       PHOTO API          //////////////////////////////
 
+    public Photo createPhotoPost(Long postId,Photo photoObject){
 
+        try {
+            Optional post = postRepository.findById(postId);
+            photoObject.setPosts((Posts) post.get());
+            return photoRepository.save(photoObject);
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("post with id " + postId + " not found");
+        }
+    }
 
+    public List<Photo> getAllPhotosOnPost(Long postId){
+        System.out.println("Calling all photos on post");
+        Posts posts = postRepository.findById(postId).get();
+        return posts.getPhotoList();
+    }
+
+    public Photo getPhotoOnPost(Long postId, Long photoId){
+        Optional<Posts> posts = postRepository.findById(postId);
+        if (posts.isPresent()) {
+            Optional<Photo> photo = photoRepository.findByPostsId(
+                    postId).stream().filter(p -> p.getId().equals(photoId)).findFirst();
+            if(photo.isEmpty()){
+                throw new InformationNotFoundException("Photo with Id " + photoId + " not found");
+            }else {
+                return photo.get();
+            }
+        }else{
+            throw new InformationNotFoundException("Post with id " + postId + " not found");
+        }
+    }
 
 
 
