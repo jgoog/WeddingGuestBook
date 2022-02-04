@@ -66,7 +66,7 @@ In this project I created:
  - Json Web Tokens (JWT) : what I used for authentication
 
  # User Stories
-Type of user>As a wedding guest
+Type of user As a wedding guest
 TASK I want to be able to make a post. 
 GOAL so that I can interact with other guest.
 - ACCEPTANCE CRITERIA
@@ -98,4 +98,11 @@ THEN the app saves my comment or picture and the app shows my picture or comment
 1. As a user I can delete a photo.
 1. As a user I can post a photo.
 
+
+## Project Challenges
+
+1. A challenge faced with the JWT token I kept getting an error message saying that the token I have is not trust worthy. Fixed that then I got another error saying token has expired a couple of days ago. Seems to be a common thing people run into I was'nt able to find a fix for it. I just redid my package pretty much started over.
+2. Debugging a LOT , I felt a majority of my time was spent debugging and when I finally figured it out it was the smallest thing. I will say I am geting better at it tho so pros and cons.
+3. Early on in the project I guess spring boot has it own natural security? I couldn't get past spring boot loading. I disabled a bunch of dependencies till it let me in.
+4. Bean errors were also killing me early on you really have to watch what you type I forgot an "S" one time on "post" sent my whole application crashing.
 
