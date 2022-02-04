@@ -99,7 +99,14 @@ public class PostController {
         return postService.getPhotoOnPost(postId,photoId);
     }
 
-
+    @DeleteMapping(path = "/posts/{postId}/photo/{photoId}")
+    public ResponseEntity<HashMap> deletePhotoPost(
+            @PathVariable(value = "postId")Long postId, @PathVariable(value = "photoId")Long photoId){
+        postService.deletePhotoPost(postId,photoId);
+        HashMap responseMessage = new HashMap();
+        responseMessage.put("status", "comment with Id: " + photoId + " was successfully deleted.");
+        return new ResponseEntity<HashMap>(responseMessage, HttpStatus.OK);
+    }
 
 
 }

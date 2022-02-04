@@ -3,7 +3,6 @@ package com.example.weddingguestbook.service;
 import com.example.weddingguestbook.security.JwtRequestFilter;
 import com.example.weddingguestbook.security.MyUserDetails;
 import com.example.weddingguestbook.security.MyUserDetailsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -50,7 +49,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // only allowed urls with out JWT
         http.authorizeRequests().antMatchers(
-                        "/auth/users/", "/auth/users/login/", "/auth/users/register/", "/api/hello-world/").permitAll()
+                        "/auth/users/", "/auth/users/login/", "/auth/users/register/", "/api/test-world/").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

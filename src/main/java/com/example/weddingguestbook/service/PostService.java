@@ -179,28 +179,37 @@ public class PostService {
     }
 
     public Photo getPhotoOnPost(Long postId, Long photoId){
-        Optional<Posts> posts = postRepository.findById(postId);
-        if (posts.isPresent()) {
-            Optional<Photo> photo = photoRepository.findByPostsId(
-                    postId).stream().filter(p -> p.getId().equals(photoId)).findFirst();
-            if(photo.isEmpty()){
-                throw new InformationNotFoundException("Photo with Id " + photoId + " not found");
-            }else {
-                return photo.get();
-            }
-        }else{
-            throw new InformationNotFoundException("Post with id " + postId + " not found");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId +
+                    " not belongs to this user or category does not exist");
         }
+        Optional<Photo> photo = photoRepository.findByPostsId(
+                postId).stream().filter(p -> p.getId().equals(photoId)).findFirst();
+        if (!photo.isPresent()) {
+            throw new InformationNotFoundException("photo with id " + photoId +
+                    " not belongs to this user or recipe does not exist");
+        }
+        return photo.get();
     }
 
     public void deletePhotoPost(Long postId, Long photoId){
-        try {
-            Photo photo = (photoRepository.findByPostsId(
-                    postId).stream().filter(p -> p.getId().equals(photoId)).findFirst()).get();
-            photoRepository.deleteById(photo.getId());
-        } catch (NoSuchElementException e) {
-            throw new InformationNotFoundException("recipe or category not found");
+        System.out.println("Calling to delete Comment on post ==>");
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId +
+                    " not belongs to this user or post does not exist");
         }
+        Optional<Photo> photo = photoRepository.findByPostsId(
+                postId).stream().filter(p -> p.getId().equals(photoId)).findFirst();
+        if (!photo.isPresent()) {
+            throw new InformationNotFoundException("photo with id " + photoId +
+                    " not belongs to this user or photo does not exist");
+        }
+        photoRepository.deleteById(photo.get().getId());
     }
 
 
