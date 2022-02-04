@@ -43,7 +43,7 @@ public class PostService {
             postObject.setUser(userDetails.getUser());
             return postRepository.save(postObject);
     }
-
+  ////////////////////////             POST                       //////////////////////
     public List<Posts> getAllPosts(){
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println("Returning all post by every user");
@@ -91,14 +91,19 @@ public class PostService {
     //////////////////       COMMENTS API             ///////////////////
 
     public Comments createCommentPost(Long postId, Comments commentsObject){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+
         System.out.println("service calling createCommentPost ==>");
-        try {
-            Optional post = postRepository.findById(postId);
-            commentsObject.setPosts((Posts) post.get());
-            return commentsRepository.save(commentsObject);
-        } catch (NoSuchElementException e) {
-            throw new InformationNotFoundException("post with id " + postId + " not found");
+        if (post == null) {
+            throw new InformationNotFoundException(
+                    "post with id " + postId + " does not belongs to this user or post does not exist");
         }
+        Comments comments = commentsRepository.findByIdAndUserId(commentsObject.getId(), userDetails.getUser().getId());
+
+        commentsObject.setUser(userDetails.getUser());
+        commentsObject.setPosts(post);
+        return commentsRepository.save(commentsObject);
     }
 
     public List<Comments> getCommentsPost(Long postId){
