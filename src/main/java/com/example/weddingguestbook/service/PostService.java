@@ -78,8 +78,14 @@ public class PostService {
     }
 
     public String deletePost (Long postId){
-        postRepository.deleteById(postId);
-        return "post with Id " + postId + "has been deleted successfully";
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Posts post = postRepository.findByIdAndUserId(postId,userDetails.getUser().getId());
+        if (post == null) {
+            throw new InformationNotFoundException("post with id " + postId + " not found");
+        } else {
+            postRepository.deleteById(postId);
+            return "post with Id " + postId + " has been deleted successfully";
+        }
     }
 
     //////////////////       COMMENTS API             ///////////////////
