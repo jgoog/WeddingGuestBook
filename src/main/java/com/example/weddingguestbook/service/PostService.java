@@ -38,7 +38,9 @@ public class PostService {
 
 
     public Posts createPost(Posts postObject){
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+            postObject.setUser(userDetails.getUser());
             return postRepository.save(postObject);
     }
 
